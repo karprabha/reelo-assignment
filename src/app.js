@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import createError from "http-errors";
 
 import databaseConfig from "../config/database.config.js";
+import v1Router from "./api/v1/routes/index.js";
 
 const app = express();
 
@@ -22,6 +23,8 @@ app.use(logger(process.env.MORGAN_LOG_FORMAT || "dev"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use("/api/v1", v1Router);
 
 app.use((req, res, next) => {
     next(createError(404));
