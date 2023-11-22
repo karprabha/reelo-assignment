@@ -1,6 +1,6 @@
 const databaseConfig = {
     development: {
-        url: "mongodb://127.0.0.1/reelo-assignment",
+        url: "mongodb://localhost:27017/reelo-assignment",
         options: {},
     },
     production: {
