@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+    dev-db:
+        image: mongo:7.0.2
+        restart: always
+        ports:
+            - 27017:27017
+networks:
+    prabhakar:
