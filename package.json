@@ -7,7 +7,11 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node ./bin/www",
-        "dev": "SET DEBUG=reelo-assignment:* && nodemon -e js ./bin/www",
+        "db:dev:rm": "docker compose rm dev-db -s -f -v",
+        "db:dev:up": "docker compose up dev-db -d",
+        "db:dev:populate": "node db-scripts/v1/populatedb.js mongodb://localhost:27017/reelo-assignment",
+        "db:dev:restart": "npm run db:dev:rm && npm run db:dev:up &&  timeout /t 1 && npm run db:dev:populate",
+        "dev": "npm run db:dev:restart &&  timeout /t 1 && SET DEBUG=reelo-assignment:* && nodemon -e js ./bin/www",
         "architecture": "depcruise --include-only \"^src\" --output-type dot src | dot -T svg > dependency-graph.svg"
     },
     "author": "Prabhakar Yadav",
