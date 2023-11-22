@@ -1,0 +1,36 @@
+{
+    "name": "reelo-assignment",
+    "version": "1.0.0",
+    "description": "",
+    "main": "bin/www.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node ./bin/www",
+        "dev": "set \"BROWSER=none\" && start chrome http://localhost:3000 -incognito && SET DEBUG=reelo-assignment:* && nodemon -e js ./bin/www",
+        "architecture": "depcruise --include-only \"^src\" --output-type dot src | dot -T svg > dependency-graph.svg"
+    },
+    "author": "Prabhakar Yadav",
+    "license": "ISC",
+    "engines": {
+        "node": ">=20.9.0 <21.0.0"
+    },
+    "devDependencies": {
+        "dependency-cruiser": "^14.0.0",
+        "eslint": "^7.32.0 || ^8.2.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-plugin-import": "^2.25.2",
+        "nodemon": "^3.0.1",
+        "prettier": "^3.0.3"
+    },
+    "dependencies": {
+        "debug": "^4.3.4",
+        "express": "^4.18.2",
+        "express-async-handler": "^1.2.0",
+        "express-validator": "^7.0.1",
+        "http-errors": "^2.0.0",
+        "mongoose": "^8.0.0",
+        "morgan": "^1.10.0"
+    }
+}
