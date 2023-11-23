@@ -1,0 +1,1 @@
+export { default as questionpaperController } from "./questionpaper.controller.js";
