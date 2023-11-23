@@ -1,43 +1,73 @@
 #!/usr/bin/env node
 
 import mongoose from "mongoose";
-
 import Question from "../../src/api/v1/models/questionpaper.js";
 
-const questions = [];
+const subjects = ["Maths", "Physics", "Geography"];
+const topics = {
+    "Maths": ["Algebra", "Geometry", "Calculus"],
+    "Physics": ["Mechanics", "Thermodynamics", "Electromagnetism"],
+    "Geography": ["IndianGeography", "WorldGeography", "PhysicalGeography"]
+};
+const difficulties = ["easy", "medium", "hard"];
 
 const userArgs = process.argv.slice(2);
 const mongoDB = userArgs[0];
 
 mongoose.set("strictQuery", false);
 
-async function questionCreate(text, difficulty, marks) {
-    const question = new Question({
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+const questionCreate = (text, difficulty, marks, subject, topic) =>
+    new Question({
         text,
         difficulty,
         marks,
+        subject,
+        topic,
     });
 
-    await question.save();
-    questions.push(question);
-    console.log(`Added question: ${text}`);
-}
-
-async function createData() {
+const createData = async () => {
     try {
         console.log("Connecting to MongoDB...");
         await mongoose.connect(mongoDB);
 
-        await questionCreate("What is the capital of France?", "easy", 2);
-        await questionCreate("Who wrote 'Romeo and Juliet'?", "medium", 3);
-        await questionCreate("What is the square root of 144?", "medium", 4);
-        await questionCreate("Solve: 5 + 7 * 2", "hard", 5);
+        const questionArray = [];
+
+        subjects.forEach((subject) => {
+            const subjectTopics = topics[subject];
+
+            if (!subjectTopics) {
+                console.error(`No topics found for ${subject}`);
+                return;
+            }
+
+            subjectTopics.forEach((topic) => {
+                difficulties.forEach((difficulty) => {
+                    const totalMarks = 100;
+                    let remainingMarks = totalMarks;
+
+                    while (remainingMarks > 0) {
+                        const marks = getRandomInt(2, Math.min(5, remainingMarks));
+                        const text = `Dummy question in ${subject} - ${topic} - ${difficulty}`;
+
+                        questionArray.push(questionCreate(text, difficulty, marks, subject, topic));
+
+                        remainingMarks -= marks;
+                    }
+                });
+            });
+        });
+
+        await Question.insertMany(questionArray);
+
+        console.log("Questions added to the database.");
     } catch (error) {
         console.error("Error populating the database:", error);
     } finally {
         console.log("Closing MongoDB connection...");
         mongoose.connection.close();
     }
-}
+};
 
 createData();
