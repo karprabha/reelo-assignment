@@ -7,6 +7,18 @@ const questionSchema = new Schema({
         minlength: 10,
         maxlength: 300
     },
+    subject: {
+        type: String,
+        required: true,
+        minlength: 2,
+        maxlength: 50
+    },
+    topic: {
+        type: String,
+        required: true,
+        minlength: 2,
+        maxlength: 50
+    },
     difficulty: {
         type: String,
         enum: ['easy', 'medium', 'hard'],
@@ -15,11 +27,10 @@ const questionSchema = new Schema({
     marks: {
         type: Number,
         required: true,
-        min: 2,
+        min: 1,
         max: 5
     },
 });
-
 
 const Question = model("Question", questionSchema);
 
