@@ -1,0 +1,1 @@
+export { default as questionPaperValidator } from "./questionpaper.validator.js";
