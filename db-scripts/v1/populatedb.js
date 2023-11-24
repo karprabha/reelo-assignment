@@ -5,9 +5,9 @@ import Question from "../../src/api/v1/models/question.js";
 
 const subjects = ["Maths", "Physics", "Geography"];
 const topics = {
-    "Maths": ["Algebra", "Geometry", "Calculus"],
-    "Physics": ["Mechanics", "Thermodynamics", "Electromagnetism"],
-    "Geography": ["IndianGeography", "WorldGeography", "PhysicalGeography"]
+    Maths: ["Algebra", "Geometry", "Calculus"],
+    Physics: ["Mechanics", "Thermodynamics", "Electromagnetism"],
+    Geography: ["IndianGeography", "WorldGeography", "PhysicalGeography"],
 };
 const difficulties = ["easy", "medium", "hard"];
 
@@ -16,7 +16,8 @@ const mongoDB = userArgs[0];
 
 mongoose.set("strictQuery", false);
 
-const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const getRandomInt = (min, max) =>
+    Math.floor(Math.random() * (max - min + 1)) + min;
 
 const questionCreate = (text, difficulty, marks, subject, topic) =>
     new Question({
@@ -48,10 +49,21 @@ const createData = async () => {
                     let remainingMarks = totalMarks;
 
                     while (remainingMarks > 0) {
-                        const marks = getRandomInt(2, Math.min(5, remainingMarks));
+                        const marks = getRandomInt(
+                            1,
+                            Math.min(5, remainingMarks),
+                        );
                         const text = `Dummy question in ${subject} - ${topic} - ${difficulty}`;
 
-                        questionArray.push(questionCreate(text, difficulty, marks, subject, topic));
+                        questionArray.push(
+                            questionCreate(
+                                text,
+                                difficulty,
+                                marks,
+                                subject,
+                                topic,
+                            ),
+                        );
 
                         remainingMarks -= marks;
                     }
