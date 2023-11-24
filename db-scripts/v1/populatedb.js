@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import mongoose from "mongoose";
-import Question from "../../src/api/v1/models/questionpaper.js";
+import Question from "../../src/api/v1/models/question.js";
 
 const subjects = ["Maths", "Physics", "Geography"];
 const topics = {
