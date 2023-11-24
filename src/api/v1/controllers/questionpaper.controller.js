@@ -1,10 +1,17 @@
 import expressAsyncHandler from "express-async-handler";
 
-import { Question } from "../models/index.js";
+import { questionPaperService } from "../services/index.js";
 
 const generateQuestionPaper = expressAsyncHandler(async (req, res, next) => {
+    const { totalMarks, subjectName, difficultyDistribution } = req.body;
 
-    res.json({ msg: 'paper generated' });
+    const questionPaper = await questionPaperService.generateQuestionPaper(
+        totalMarks,
+        subjectName,
+        difficultyDistribution,
+    );
+
+    return res.status(200).json({ questionPaper });
 });
 
 export default {
