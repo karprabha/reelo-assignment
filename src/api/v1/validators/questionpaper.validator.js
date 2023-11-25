@@ -41,7 +41,6 @@ const generateQuestionPaperValidator = [
         .withMessage("Subject name must be between 2 and 50 characters"),
 
     body("difficultyDistribution")
-        .optional()
         .isObject()
         .withMessage("Difficulty distribution must be an object")
         .custom((value, { req }) => {
