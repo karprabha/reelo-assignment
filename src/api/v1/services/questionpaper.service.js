@@ -14,8 +14,10 @@ const pickQuestions = (questions, totalMarks) => {
         }
 
         const selectedQuestion = questions.pop();
-        selectedQuestions.push(selectedQuestion);
-        remainingMarks -= selectedQuestion.marks;
+        if (selectedQuestion.marks <= remainingMarks) {
+            selectedQuestions.push(selectedQuestion);
+            remainingMarks -= selectedQuestion.marks;
+        }
     }
 
     return selectedQuestions.map(
