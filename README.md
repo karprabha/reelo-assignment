@@ -84,5 +84,40 @@ This is a simple Question Paper Generator application built with Node.js and Doc
             }
         }
         ```
+    - Using bash terminal to make curl request:
+        ```bash
+        curl -X POST -H "Content-Type: application/json" -d '{
+            "totalMarks": 100,
+            "subjectName": "Maths",
+            "difficultyDistribution": {
+                "easy": 30,
+                "medium": 40,
+                "hard": 30
+            }
+        }' http://localhost:3000/api/v1/question-papers
+        ```
 
 4. Receive the generated question paper as a response.
+
+    ```json
+    {
+        "questionPaper": {
+            "totalMarks": 100,
+            "difficultyDistribution": {
+                "easy": 30,
+                "medium": 40,
+                "hard": 30
+            },
+            "questions": [
+                {
+                    "text": "Dummy question in Maths - Calculus - easy",
+                    "subject": "Maths",
+                    "topic": "Calculus",
+                    "difficulty": "easy",
+                    "marks": 5
+                },
+                ...
+            ]
+        }
+    }
+    ```
