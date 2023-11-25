@@ -121,3 +121,9 @@ This is a simple Question Paper Generator application built with Node.js and Doc
         }
     }
     ```
+
+**NOTE:** dev-db only contains these subjects:
+
+1. "Maths"
+2. "Physics"
+3. "Geography"
